@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.crowdfunding.mapper.XStatementAnalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.XStatementAnalysis" >
+    <result column="db" property="db" jdbcType="VARCHAR" />
+    <result column="full_scan" property="fullScan" jdbcType="VARCHAR" />
+    <result column="exec_count" property="execCount" jdbcType="BIGINT" />
+    <result column="err_count" property="errCount" jdbcType="BIGINT" />
+    <result column="warn_count" property="warnCount" jdbcType="BIGINT" />
+    <result column="total_latency" property="totalLatency" jdbcType="BIGINT" />
+    <result column="max_latency" property="maxLatency" jdbcType="BIGINT" />
+    <result column="avg_latency" property="avgLatency" jdbcType="BIGINT" />
+    <result column="lock_latency" property="lockLatency" jdbcType="BIGINT" />
+    <result column="rows_sent" property="rowsSent" jdbcType="BIGINT" />
+    <result column="rows_sent_avg" property="rowsSentAvg" jdbcType="DECIMAL" />
+    <result column="rows_examined" property="rowsExamined" jdbcType="BIGINT" />
+    <result column="rows_examined_avg" property="rowsExaminedAvg" jdbcType="DECIMAL" />
+    <result column="rows_affected" property="rowsAffected" jdbcType="BIGINT" />
+    <result column="rows_affected_avg" property="rowsAffectedAvg" jdbcType="DECIMAL" />
+    <result column="tmp_tables" property="tmpTables" jdbcType="BIGINT" />
+    <result column="tmp_disk_tables" property="tmpDiskTables" jdbcType="BIGINT" />
+    <result column="rows_sorted" property="rowsSorted" jdbcType="BIGINT" />
+    <result column="sort_merge_passes" property="sortMergePasses" jdbcType="BIGINT" />
+    <result column="digest" property="digest" jdbcType="VARCHAR" />
+    <result column="first_seen" property="firstSeen" jdbcType="TIMESTAMP" />
+    <result column="last_seen" property="lastSeen" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yan.crowdfunding.entity.XStatementAnalysis" extends="BaseResultMap" >
+    <result column="query" property="query" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    db, full_scan, exec_count, err_count, warn_count, total_latency, max_latency, avg_latency, 
+    lock_latency, rows_sent, rows_sent_avg, rows_examined, rows_examined_avg, rows_affected, 
+    rows_affected_avg, tmp_tables, tmp_disk_tables, rows_sorted, sort_merge_passes, digest, 
+    first_seen, last_seen
+  </sql>
+  <sql id="Blob_Column_List" >
+    query
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yan.crowdfunding.entity.XStatementAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from x$statement_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yan.crowdfunding.entity.XStatementAnalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from x$statement_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yan.crowdfunding.entity.XStatementAnalysisExample" >
+    delete from x$statement_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.crowdfunding.entity.XStatementAnalysis" >
+    insert into x$statement_analysis (db, full_scan, exec_count, 
+      err_count, warn_count, total_latency, 
+      max_latency, avg_latency, lock_latency, 
+      rows_sent, rows_sent_avg, rows_examined, 
+      rows_examined_avg, rows_affected, rows_affected_avg, 
+      tmp_tables, tmp_disk_tables, rows_sorted, 
+      sort_merge_passes, digest, first_seen, 
+      last_seen, query)
+    values (#{db,jdbcType=VARCHAR}, #{fullScan,jdbcType=VARCHAR}, #{execCount,jdbcType=BIGINT}, 
+      #{errCount,jdbcType=BIGINT}, #{warnCount,jdbcType=BIGINT}, #{totalLatency,jdbcType=BIGINT}, 
+      #{maxLatency,jdbcType=BIGINT}, #{avgLatency,jdbcType=BIGINT}, #{lockLatency,jdbcType=BIGINT}, 
+      #{rowsSent,jdbcType=BIGINT}, #{rowsSentAvg,jdbcType=DECIMAL}, #{rowsExamined,jdbcType=BIGINT}, 
+      #{rowsExaminedAvg,jdbcType=DECIMAL}, #{rowsAffected,jdbcType=BIGINT}, #{rowsAffectedAvg,jdbcType=DECIMAL}, 
+      #{tmpTables,jdbcType=BIGINT}, #{tmpDiskTables,jdbcType=BIGINT}, #{rowsSorted,jdbcType=BIGINT}, 
+      #{sortMergePasses,jdbcType=BIGINT}, #{digest,jdbcType=VARCHAR}, #{firstSeen,jdbcType=TIMESTAMP}, 
+      #{lastSeen,jdbcType=TIMESTAMP}, #{query,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.crowdfunding.entity.XStatementAnalysis" >
+    insert into x$statement_analysis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="db != null" >
+        db,
+      </if>
+      <if test="fullScan != null" >
+        full_scan,
+      </if>
+      <if test="execCount != null" >
+        exec_count,
+      </if>
+      <if test="errCount != null" >
+        err_count,
+      </if>
+      <if test="warnCount != null" >
+        warn_count,
+      </if>
+      <if test="totalLatency != null" >
+        total_latency,
+      </if>
+      <if test="maxLatency != null" >
+        max_latency,
+      </if>
+      <if test="avgLatency != null" >
+        avg_latency,
+      </if>
+      <if test="lockLatency != null" >
+        lock_latency,
+      </if>
+      <if test="rowsSent != null" >
+        rows_sent,
+      </if>
+      <if test="rowsSentAvg != null" >
+        rows_sent_avg,
+      </if>
+      <if test="rowsExamined != null" >
+        rows_examined,
+      </if>
+      <if test="rowsExaminedAvg != null" >
+        rows_examined_avg,
+      </if>
+      <if test="rowsAffected != null" >
+        rows_affected,
+      </if>
+      <if test="rowsAffectedAvg != null" >
+        rows_affected_avg,
+      </if>
+      <if test="tmpTables != null" >
+        tmp_tables,
+      </if>
+      <if test="tmpDiskTables != null" >
+        tmp_disk_tables,
+      </if>
+      <if test="rowsSorted != null" >
+        rows_sorted,
+      </if>
+      <if test="sortMergePasses != null" >
+        sort_merge_passes,
+      </if>
+      <if test="digest != null" >
+        digest,
+      </if>
+      <if test="firstSeen != null" >
+        first_seen,
+      </if>
+      <if test="lastSeen != null" >
+        last_seen,
+      </if>
+      <if test="query != null" >
+        query,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="db != null" >
+        #{db,jdbcType=VARCHAR},
+      </if>
+      <if test="fullScan != null" >
+        #{fullScan,jdbcType=VARCHAR},
+      </if>
+      <if test="execCount != null" >
+        #{execCount,jdbcType=BIGINT},
+      </if>
+      <if test="errCount != null" >
+        #{errCount,jdbcType=BIGINT},
+      </if>
+      <if test="warnCount != null" >
+        #{warnCount,jdbcType=BIGINT},
+      </if>
+      <if test="totalLatency != null" >
+        #{totalLatency,jdbcType=BIGINT},
+      </if>
+      <if test="maxLatency != null" >
+        #{maxLatency,jdbcType=BIGINT},
+      </if>
+      <if test="avgLatency != null" >
+        #{avgLatency,jdbcType=BIGINT},
+      </if>
+      <if test="lockLatency != null" >
+        #{lockLatency,jdbcType=BIGINT},
+      </if>
+      <if test="rowsSent != null" >
+        #{rowsSent,jdbcType=BIGINT},
+      </if>
+      <if test="rowsSentAvg != null" >
+        #{rowsSentAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="rowsExamined != null" >
+        #{rowsExamined,jdbcType=BIGINT},
+      </if>
+      <if test="rowsExaminedAvg != null" >
+        #{rowsExaminedAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="rowsAffected != null" >
+        #{rowsAffected,jdbcType=BIGINT},
+      </if>
+      <if test="rowsAffectedAvg != null" >
+        #{rowsAffectedAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="tmpTables != null" >
+        #{tmpTables,jdbcType=BIGINT},
+      </if>
+      <if test="tmpDiskTables != null" >
+        #{tmpDiskTables,jdbcType=BIGINT},
+      </if>
+      <if test="rowsSorted != null" >
+        #{rowsSorted,jdbcType=BIGINT},
+      </if>
+      <if test="sortMergePasses != null" >
+        #{sortMergePasses,jdbcType=BIGINT},
+      </if>
+      <if test="digest != null" >
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="firstSeen != null" >
+        #{firstSeen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastSeen != null" >
+        #{lastSeen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="query != null" >
+        #{query,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.crowdfunding.entity.XStatementAnalysisExample" resultType="java.lang.Integer" >
+    select count(*) from x$statement_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update x$statement_analysis
+    <set >
+      <if test="record.db != null" >
+        db = #{record.db,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullScan != null" >
+        full_scan = #{record.fullScan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.execCount != null" >
+        exec_count = #{record.execCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.errCount != null" >
+        err_count = #{record.errCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.warnCount != null" >
+        warn_count = #{record.warnCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.totalLatency != null" >
+        total_latency = #{record.totalLatency,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxLatency != null" >
+        max_latency = #{record.maxLatency,jdbcType=BIGINT},
+      </if>
+      <if test="record.avgLatency != null" >
+        avg_latency = #{record.avgLatency,jdbcType=BIGINT},
+      </if>
+      <if test="record.lockLatency != null" >
+        lock_latency = #{record.lockLatency,jdbcType=BIGINT},
+      </if>
+      <if test="record.rowsSent != null" >
+        rows_sent = #{record.rowsSent,jdbcType=BIGINT},
+      </if>
+      <if test="record.rowsSentAvg != null" >
+        rows_sent_avg = #{record.rowsSentAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rowsExamined != null" >
+        rows_examined = #{record.rowsExamined,jdbcType=BIGINT},
+      </if>
+      <if test="record.rowsExaminedAvg != null" >
+        rows_examined_avg = #{record.rowsExaminedAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rowsAffected != null" >
+        rows_affected = #{record.rowsAffected,jdbcType=BIGINT},
+      </if>
+      <if test="record.rowsAffectedAvg != null" >
+        rows_affected_avg = #{record.rowsAffectedAvg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tmpTables != null" >
+        tmp_tables = #{record.tmpTables,jdbcType=BIGINT},
+      </if>
+      <if test="record.tmpDiskTables != null" >
+        tmp_disk_tables = #{record.tmpDiskTables,jdbcType=BIGINT},
+      </if>
+      <if test="record.rowsSorted != null" >
+        rows_sorted = #{record.rowsSorted,jdbcType=BIGINT},
+      </if>
+      <if test="record.sortMergePasses != null" >
+        sort_merge_passes = #{record.sortMergePasses,jdbcType=BIGINT},
+      </if>
+      <if test="record.digest != null" >
+        digest = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstSeen != null" >
+        first_seen = #{record.firstSeen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastSeen != null" >
+        last_seen = #{record.lastSeen,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.query != null" >
+        query = #{record.query,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update x$statement_analysis
+    set db = #{record.db,jdbcType=VARCHAR},
+      full_scan = #{record.fullScan,jdbcType=VARCHAR},
+      exec_count = #{record.execCount,jdbcType=BIGINT},
+      err_count = #{record.errCount,jdbcType=BIGINT},
+      warn_count = #{record.warnCount,jdbcType=BIGINT},
+      total_latency = #{record.totalLatency,jdbcType=BIGINT},
+      max_latency = #{record.maxLatency,jdbcType=BIGINT},
+      avg_latency = #{record.avgLatency,jdbcType=BIGINT},
+      lock_latency = #{record.lockLatency,jdbcType=BIGINT},
+      rows_sent = #{record.rowsSent,jdbcType=BIGINT},
+      rows_sent_avg = #{record.rowsSentAvg,jdbcType=DECIMAL},
+      rows_examined = #{record.rowsExamined,jdbcType=BIGINT},
+      rows_examined_avg = #{record.rowsExaminedAvg,jdbcType=DECIMAL},
+      rows_affected = #{record.rowsAffected,jdbcType=BIGINT},
+      rows_affected_avg = #{record.rowsAffectedAvg,jdbcType=DECIMAL},
+      tmp_tables = #{record.tmpTables,jdbcType=BIGINT},
+      tmp_disk_tables = #{record.tmpDiskTables,jdbcType=BIGINT},
+      rows_sorted = #{record.rowsSorted,jdbcType=BIGINT},
+      sort_merge_passes = #{record.sortMergePasses,jdbcType=BIGINT},
+      digest = #{record.digest,jdbcType=VARCHAR},
+      first_seen = #{record.firstSeen,jdbcType=TIMESTAMP},
+      last_seen = #{record.lastSeen,jdbcType=TIMESTAMP},
+      query = #{record.query,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update x$statement_analysis
+    set db = #{record.db,jdbcType=VARCHAR},
+      full_scan = #{record.fullScan,jdbcType=VARCHAR},
+      exec_count = #{record.execCount,jdbcType=BIGINT},
+      err_count = #{record.errCount,jdbcType=BIGINT},
+      warn_count = #{record.warnCount,jdbcType=BIGINT},
+      total_latency = #{record.totalLatency,jdbcType=BIGINT},
+      max_latency = #{record.maxLatency,jdbcType=BIGINT},
+      avg_latency = #{record.avgLatency,jdbcType=BIGINT},
+      lock_latency = #{record.lockLatency,jdbcType=BIGINT},
+      rows_sent = #{record.rowsSent,jdbcType=BIGINT},
+      rows_sent_avg = #{record.rowsSentAvg,jdbcType=DECIMAL},
+      rows_examined = #{record.rowsExamined,jdbcType=BIGINT},
+      rows_examined_avg = #{record.rowsExaminedAvg,jdbcType=DECIMAL},
+      rows_affected = #{record.rowsAffected,jdbcType=BIGINT},
+      rows_affected_avg = #{record.rowsAffectedAvg,jdbcType=DECIMAL},
+      tmp_tables = #{record.tmpTables,jdbcType=BIGINT},
+      tmp_disk_tables = #{record.tmpDiskTables,jdbcType=BIGINT},
+      rows_sorted = #{record.rowsSorted,jdbcType=BIGINT},
+      sort_merge_passes = #{record.sortMergePasses,jdbcType=BIGINT},
+      digest = #{record.digest,jdbcType=VARCHAR},
+      first_seen = #{record.firstSeen,jdbcType=TIMESTAMP},
+      last_seen = #{record.lastSeen,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

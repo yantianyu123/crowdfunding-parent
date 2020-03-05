@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<!-- 指定使用的日志 -->
+		<setting name="logImpl" value="LOG4J"/>
+		<!-- 开启延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+		<!-- 开启二级缓存 -->
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+
+	<typeAliases>
+		<!-- 设置别名
+		<typeAlias type="com.yan.mybatis_mapper.mapper.Person" alias="person"></typeAlias> -->
+
+		<!-- 自动配置该包下实体类的别名，别名是类名首字母小写 -->
+		<package name="com.yan.crowdfunding.entity"/>
+
+	</typeAliases>
+
+	<!-- 分页插件 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
+
+	<!-- 引入实体类映射文件 -->
+	<mappers>
+		<package name="mybatis.mapper"/>
+	</mappers>
+</configuration>

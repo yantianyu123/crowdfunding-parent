@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.crowdfunding.mapper.SchemaRedundantIndexesMapper" >
+  <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.SchemaRedundantIndexes" >
+    <result column="table_schema" property="tableSchema" jdbcType="VARCHAR" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="redundant_index_name" property="redundantIndexName" jdbcType="VARCHAR" />
+    <result column="redundant_index_non_unique" property="redundantIndexNonUnique" jdbcType="BIGINT" />
+    <result column="dominant_index_name" property="dominantIndexName" jdbcType="VARCHAR" />
+    <result column="dominant_index_non_unique" property="dominantIndexNonUnique" jdbcType="BIGINT" />
+    <result column="subpart_exists" property="subpartExists" jdbcType="INTEGER" />
+    <result column="sql_drop_index" property="sqlDropIndex" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yan.crowdfunding.entity.SchemaRedundantIndexesWithBLOBs" extends="BaseResultMap" >
+    <result column="redundant_index_columns" property="redundantIndexColumns" jdbcType="LONGVARCHAR" />
+    <result column="dominant_index_columns" property="dominantIndexColumns" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    table_schema, table_name, redundant_index_name, redundant_index_non_unique, dominant_index_name, 
+    dominant_index_non_unique, subpart_exists, sql_drop_index
+  </sql>
+  <sql id="Blob_Column_List" >
+    redundant_index_columns, dominant_index_columns
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from schema_redundant_indexes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from schema_redundant_indexes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesExample" >
+    delete from schema_redundant_indexes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesWithBLOBs" >
+    insert into schema_redundant_indexes (table_schema, table_name, redundant_index_name, 
+      redundant_index_non_unique, dominant_index_name, 
+      dominant_index_non_unique, subpart_exists, sql_drop_index, 
+      redundant_index_columns, dominant_index_columns
+      )
+    values (#{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, #{redundantIndexName,jdbcType=VARCHAR}, 
+      #{redundantIndexNonUnique,jdbcType=BIGINT}, #{dominantIndexName,jdbcType=VARCHAR}, 
+      #{dominantIndexNonUnique,jdbcType=BIGINT}, #{subpartExists,jdbcType=INTEGER}, #{sqlDropIndex,jdbcType=VARCHAR}, 
+      #{redundantIndexColumns,jdbcType=LONGVARCHAR}, #{dominantIndexColumns,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesWithBLOBs" >
+    insert into schema_redundant_indexes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tableSchema != null" >
+        table_schema,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="redundantIndexName != null" >
+        redundant_index_name,
+      </if>
+      <if test="redundantIndexNonUnique != null" >
+        redundant_index_non_unique,
+      </if>
+      <if test="dominantIndexName != null" >
+        dominant_index_name,
+      </if>
+      <if test="dominantIndexNonUnique != null" >
+        dominant_index_non_unique,
+      </if>
+      <if test="subpartExists != null" >
+        subpart_exists,
+      </if>
+      <if test="sqlDropIndex != null" >
+        sql_drop_index,
+      </if>
+      <if test="redundantIndexColumns != null" >
+        redundant_index_columns,
+      </if>
+      <if test="dominantIndexColumns != null" >
+        dominant_index_columns,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tableSchema != null" >
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="redundantIndexName != null" >
+        #{redundantIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="redundantIndexNonUnique != null" >
+        #{redundantIndexNonUnique,jdbcType=BIGINT},
+      </if>
+      <if test="dominantIndexName != null" >
+        #{dominantIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="dominantIndexNonUnique != null" >
+        #{dominantIndexNonUnique,jdbcType=BIGINT},
+      </if>
+      <if test="subpartExists != null" >
+        #{subpartExists,jdbcType=INTEGER},
+      </if>
+      <if test="sqlDropIndex != null" >
+        #{sqlDropIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="redundantIndexColumns != null" >
+        #{redundantIndexColumns,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dominantIndexColumns != null" >
+        #{dominantIndexColumns,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.crowdfunding.entity.SchemaRedundantIndexesExample" resultType="java.lang.Integer" >
+    select count(*) from schema_redundant_indexes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update schema_redundant_indexes
+    <set >
+      <if test="record.tableSchema != null" >
+        table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null" >
+        table_name = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redundantIndexName != null" >
+        redundant_index_name = #{record.redundantIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redundantIndexNonUnique != null" >
+        redundant_index_non_unique = #{record.redundantIndexNonUnique,jdbcType=BIGINT},
+      </if>
+      <if test="record.dominantIndexName != null" >
+        dominant_index_name = #{record.dominantIndexName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dominantIndexNonUnique != null" >
+        dominant_index_non_unique = #{record.dominantIndexNonUnique,jdbcType=BIGINT},
+      </if>
+      <if test="record.subpartExists != null" >
+        subpart_exists = #{record.subpartExists,jdbcType=INTEGER},
+      </if>
+      <if test="record.sqlDropIndex != null" >
+        sql_drop_index = #{record.sqlDropIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redundantIndexColumns != null" >
+        redundant_index_columns = #{record.redundantIndexColumns,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dominantIndexColumns != null" >
+        dominant_index_columns = #{record.dominantIndexColumns,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update schema_redundant_indexes
+    set table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      table_name = #{record.tableName,jdbcType=VARCHAR},
+      redundant_index_name = #{record.redundantIndexName,jdbcType=VARCHAR},
+      redundant_index_non_unique = #{record.redundantIndexNonUnique,jdbcType=BIGINT},
+      dominant_index_name = #{record.dominantIndexName,jdbcType=VARCHAR},
+      dominant_index_non_unique = #{record.dominantIndexNonUnique,jdbcType=BIGINT},
+      subpart_exists = #{record.subpartExists,jdbcType=INTEGER},
+      sql_drop_index = #{record.sqlDropIndex,jdbcType=VARCHAR},
+      redundant_index_columns = #{record.redundantIndexColumns,jdbcType=LONGVARCHAR},
+      dominant_index_columns = #{record.dominantIndexColumns,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update schema_redundant_indexes
+    set table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      table_name = #{record.tableName,jdbcType=VARCHAR},
+      redundant_index_name = #{record.redundantIndexName,jdbcType=VARCHAR},
+      redundant_index_non_unique = #{record.redundantIndexNonUnique,jdbcType=BIGINT},
+      dominant_index_name = #{record.dominantIndexName,jdbcType=VARCHAR},
+      dominant_index_non_unique = #{record.dominantIndexNonUnique,jdbcType=BIGINT},
+      subpart_exists = #{record.subpartExists,jdbcType=INTEGER},
+      sql_drop_index = #{record.sqlDropIndex,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

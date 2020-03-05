@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.crowdfunding.mapper.XHostSummaryByStatementLatencyMapper" >
+  <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.XHostSummaryByStatementLatency" >
+    <result column="host" property="host" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+    <result column="total_latency" property="totalLatency" jdbcType="DECIMAL" />
+    <result column="max_latency" property="maxLatency" jdbcType="BIGINT" />
+    <result column="lock_latency" property="lockLatency" jdbcType="DECIMAL" />
+    <result column="rows_sent" property="rowsSent" jdbcType="DECIMAL" />
+    <result column="rows_examined" property="rowsExamined" jdbcType="DECIMAL" />
+    <result column="rows_affected" property="rowsAffected" jdbcType="DECIMAL" />
+    <result column="full_scans" property="fullScans" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    host, total, total_latency, max_latency, lock_latency, rows_sent, rows_examined, 
+    rows_affected, full_scans
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yan.crowdfunding.entity.XHostSummaryByStatementLatencyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from x$host_summary_by_statement_latency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yan.crowdfunding.entity.XHostSummaryByStatementLatencyExample" >
+    delete from x$host_summary_by_statement_latency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.crowdfunding.entity.XHostSummaryByStatementLatency" >
+    insert into x$host_summary_by_statement_latency (host, total, total_latency, 
+      max_latency, lock_latency, rows_sent, 
+      rows_examined, rows_affected, full_scans
+      )
+    values (#{host,jdbcType=VARCHAR}, #{total,jdbcType=DECIMAL}, #{totalLatency,jdbcType=DECIMAL}, 
+      #{maxLatency,jdbcType=BIGINT}, #{lockLatency,jdbcType=DECIMAL}, #{rowsSent,jdbcType=DECIMAL}, 
+      #{rowsExamined,jdbcType=DECIMAL}, #{rowsAffected,jdbcType=DECIMAL}, #{fullScans,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.crowdfunding.entity.XHostSummaryByStatementLatency" >
+    insert into x$host_summary_by_statement_latency
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="host != null" >
+        host,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="totalLatency != null" >
+        total_latency,
+      </if>
+      <if test="maxLatency != null" >
+        max_latency,
+      </if>
+      <if test="lockLatency != null" >
+        lock_latency,
+      </if>
+      <if test="rowsSent != null" >
+        rows_sent,
+      </if>
+      <if test="rowsExamined != null" >
+        rows_examined,
+      </if>
+      <if test="rowsAffected != null" >
+        rows_affected,
+      </if>
+      <if test="fullScans != null" >
+        full_scans,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="host != null" >
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="totalLatency != null" >
+        #{totalLatency,jdbcType=DECIMAL},
+      </if>
+      <if test="maxLatency != null" >
+        #{maxLatency,jdbcType=BIGINT},
+      </if>
+      <if test="lockLatency != null" >
+        #{lockLatency,jdbcType=DECIMAL},
+      </if>
+      <if test="rowsSent != null" >
+        #{rowsSent,jdbcType=DECIMAL},
+      </if>
+      <if test="rowsExamined != null" >
+        #{rowsExamined,jdbcType=DECIMAL},
+      </if>
+      <if test="rowsAffected != null" >
+        #{rowsAffected,jdbcType=DECIMAL},
+      </if>
+      <if test="fullScans != null" >
+        #{fullScans,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.crowdfunding.entity.XHostSummaryByStatementLatencyExample" resultType="java.lang.Integer" >
+    select count(*) from x$host_summary_by_statement_latency
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update x$host_summary_by_statement_latency
+    <set >
+      <if test="record.host != null" >
+        host = #{record.host,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalLatency != null" >
+        total_latency = #{record.totalLatency,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxLatency != null" >
+        max_latency = #{record.maxLatency,jdbcType=BIGINT},
+      </if>
+      <if test="record.lockLatency != null" >
+        lock_latency = #{record.lockLatency,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rowsSent != null" >
+        rows_sent = #{record.rowsSent,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rowsExamined != null" >
+        rows_examined = #{record.rowsExamined,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rowsAffected != null" >
+        rows_affected = #{record.rowsAffected,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fullScans != null" >
+        full_scans = #{record.fullScans,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update x$host_summary_by_statement_latency
+    set host = #{record.host,jdbcType=VARCHAR},
+      total = #{record.total,jdbcType=DECIMAL},
+      total_latency = #{record.totalLatency,jdbcType=DECIMAL},
+      max_latency = #{record.maxLatency,jdbcType=BIGINT},
+      lock_latency = #{record.lockLatency,jdbcType=DECIMAL},
+      rows_sent = #{record.rowsSent,jdbcType=DECIMAL},
+      rows_examined = #{record.rowsExamined,jdbcType=DECIMAL},
+      rows_affected = #{record.rowsAffected,jdbcType=DECIMAL},
+      full_scans = #{record.fullScans,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

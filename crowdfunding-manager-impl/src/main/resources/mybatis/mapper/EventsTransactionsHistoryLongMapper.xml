@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.crowdfunding.mapper.EventsTransactionsHistoryLongMapper" >
+  <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.EventsTransactionsHistoryLong" >
+    <result column="THREAD_ID" property="threadId" jdbcType="BIGINT" />
+    <result column="EVENT_ID" property="eventId" jdbcType="BIGINT" />
+    <result column="END_EVENT_ID" property="endEventId" jdbcType="BIGINT" />
+    <result column="EVENT_NAME" property="eventName" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="TRX_ID" property="trxId" jdbcType="BIGINT" />
+    <result column="GTID" property="gtid" jdbcType="VARCHAR" />
+    <result column="XID_FORMAT_ID" property="xidFormatId" jdbcType="INTEGER" />
+    <result column="XID_GTRID" property="xidGtrid" jdbcType="VARCHAR" />
+    <result column="XID_BQUAL" property="xidBqual" jdbcType="VARCHAR" />
+    <result column="XA_STATE" property="xaState" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="TIMER_START" property="timerStart" jdbcType="BIGINT" />
+    <result column="TIMER_END" property="timerEnd" jdbcType="BIGINT" />
+    <result column="TIMER_WAIT" property="timerWait" jdbcType="BIGINT" />
+    <result column="ACCESS_MODE" property="accessMode" jdbcType="CHAR" />
+    <result column="ISOLATION_LEVEL" property="isolationLevel" jdbcType="VARCHAR" />
+    <result column="AUTOCOMMIT" property="autocommit" jdbcType="CHAR" />
+    <result column="NUMBER_OF_SAVEPOINTS" property="numberOfSavepoints" jdbcType="BIGINT" />
+    <result column="NUMBER_OF_ROLLBACK_TO_SAVEPOINT" property="numberOfRollbackToSavepoint" jdbcType="BIGINT" />
+    <result column="NUMBER_OF_RELEASE_SAVEPOINT" property="numberOfReleaseSavepoint" jdbcType="BIGINT" />
+    <result column="OBJECT_INSTANCE_BEGIN" property="objectInstanceBegin" jdbcType="BIGINT" />
+    <result column="NESTING_EVENT_ID" property="nestingEventId" jdbcType="BIGINT" />
+    <result column="NESTING_EVENT_TYPE" property="nestingEventType" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    THREAD_ID, EVENT_ID, END_EVENT_ID, EVENT_NAME, STATE, TRX_ID, GTID, XID_FORMAT_ID, 
+    XID_GTRID, XID_BQUAL, XA_STATE, SOURCE, TIMER_START, TIMER_END, TIMER_WAIT, ACCESS_MODE, 
+    ISOLATION_LEVEL, AUTOCOMMIT, NUMBER_OF_SAVEPOINTS, NUMBER_OF_ROLLBACK_TO_SAVEPOINT, 
+    NUMBER_OF_RELEASE_SAVEPOINT, OBJECT_INSTANCE_BEGIN, NESTING_EVENT_ID, NESTING_EVENT_TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yan.crowdfunding.entity.EventsTransactionsHistoryLongExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from events_transactions_history_long
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yan.crowdfunding.entity.EventsTransactionsHistoryLongExample" >
+    delete from events_transactions_history_long
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.crowdfunding.entity.EventsTransactionsHistoryLong" >
+    insert into events_transactions_history_long (THREAD_ID, EVENT_ID, END_EVENT_ID, 
+      EVENT_NAME, STATE, TRX_ID, 
+      GTID, XID_FORMAT_ID, XID_GTRID, 
+      XID_BQUAL, XA_STATE, SOURCE, 
+      TIMER_START, TIMER_END, TIMER_WAIT, 
+      ACCESS_MODE, ISOLATION_LEVEL, AUTOCOMMIT, 
+      NUMBER_OF_SAVEPOINTS, NUMBER_OF_ROLLBACK_TO_SAVEPOINT, 
+      NUMBER_OF_RELEASE_SAVEPOINT, OBJECT_INSTANCE_BEGIN, 
+      NESTING_EVENT_ID, NESTING_EVENT_TYPE)
+    values (#{threadId,jdbcType=BIGINT}, #{eventId,jdbcType=BIGINT}, #{endEventId,jdbcType=BIGINT}, 
+      #{eventName,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, #{trxId,jdbcType=BIGINT}, 
+      #{gtid,jdbcType=VARCHAR}, #{xidFormatId,jdbcType=INTEGER}, #{xidGtrid,jdbcType=VARCHAR}, 
+      #{xidBqual,jdbcType=VARCHAR}, #{xaState,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{timerStart,jdbcType=BIGINT}, #{timerEnd,jdbcType=BIGINT}, #{timerWait,jdbcType=BIGINT}, 
+      #{accessMode,jdbcType=CHAR}, #{isolationLevel,jdbcType=VARCHAR}, #{autocommit,jdbcType=CHAR}, 
+      #{numberOfSavepoints,jdbcType=BIGINT}, #{numberOfRollbackToSavepoint,jdbcType=BIGINT}, 
+      #{numberOfReleaseSavepoint,jdbcType=BIGINT}, #{objectInstanceBegin,jdbcType=BIGINT}, 
+      #{nestingEventId,jdbcType=BIGINT}, #{nestingEventType,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.crowdfunding.entity.EventsTransactionsHistoryLong" >
+    insert into events_transactions_history_long
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="threadId != null" >
+        THREAD_ID,
+      </if>
+      <if test="eventId != null" >
+        EVENT_ID,
+      </if>
+      <if test="endEventId != null" >
+        END_EVENT_ID,
+      </if>
+      <if test="eventName != null" >
+        EVENT_NAME,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="trxId != null" >
+        TRX_ID,
+      </if>
+      <if test="gtid != null" >
+        GTID,
+      </if>
+      <if test="xidFormatId != null" >
+        XID_FORMAT_ID,
+      </if>
+      <if test="xidGtrid != null" >
+        XID_GTRID,
+      </if>
+      <if test="xidBqual != null" >
+        XID_BQUAL,
+      </if>
+      <if test="xaState != null" >
+        XA_STATE,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="timerStart != null" >
+        TIMER_START,
+      </if>
+      <if test="timerEnd != null" >
+        TIMER_END,
+      </if>
+      <if test="timerWait != null" >
+        TIMER_WAIT,
+      </if>
+      <if test="accessMode != null" >
+        ACCESS_MODE,
+      </if>
+      <if test="isolationLevel != null" >
+        ISOLATION_LEVEL,
+      </if>
+      <if test="autocommit != null" >
+        AUTOCOMMIT,
+      </if>
+      <if test="numberOfSavepoints != null" >
+        NUMBER_OF_SAVEPOINTS,
+      </if>
+      <if test="numberOfRollbackToSavepoint != null" >
+        NUMBER_OF_ROLLBACK_TO_SAVEPOINT,
+      </if>
+      <if test="numberOfReleaseSavepoint != null" >
+        NUMBER_OF_RELEASE_SAVEPOINT,
+      </if>
+      <if test="objectInstanceBegin != null" >
+        OBJECT_INSTANCE_BEGIN,
+      </if>
+      <if test="nestingEventId != null" >
+        NESTING_EVENT_ID,
+      </if>
+      <if test="nestingEventType != null" >
+        NESTING_EVENT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="threadId != null" >
+        #{threadId,jdbcType=BIGINT},
+      </if>
+      <if test="eventId != null" >
+        #{eventId,jdbcType=BIGINT},
+      </if>
+      <if test="endEventId != null" >
+        #{endEventId,jdbcType=BIGINT},
+      </if>
+      <if test="eventName != null" >
+        #{eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="trxId != null" >
+        #{trxId,jdbcType=BIGINT},
+      </if>
+      <if test="gtid != null" >
+        #{gtid,jdbcType=VARCHAR},
+      </if>
+      <if test="xidFormatId != null" >
+        #{xidFormatId,jdbcType=INTEGER},
+      </if>
+      <if test="xidGtrid != null" >
+        #{xidGtrid,jdbcType=VARCHAR},
+      </if>
+      <if test="xidBqual != null" >
+        #{xidBqual,jdbcType=VARCHAR},
+      </if>
+      <if test="xaState != null" >
+        #{xaState,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="timerStart != null" >
+        #{timerStart,jdbcType=BIGINT},
+      </if>
+      <if test="timerEnd != null" >
+        #{timerEnd,jdbcType=BIGINT},
+      </if>
+      <if test="timerWait != null" >
+        #{timerWait,jdbcType=BIGINT},
+      </if>
+      <if test="accessMode != null" >
+        #{accessMode,jdbcType=CHAR},
+      </if>
+      <if test="isolationLevel != null" >
+        #{isolationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="autocommit != null" >
+        #{autocommit,jdbcType=CHAR},
+      </if>
+      <if test="numberOfSavepoints != null" >
+        #{numberOfSavepoints,jdbcType=BIGINT},
+      </if>
+      <if test="numberOfRollbackToSavepoint != null" >
+        #{numberOfRollbackToSavepoint,jdbcType=BIGINT},
+      </if>
+      <if test="numberOfReleaseSavepoint != null" >
+        #{numberOfReleaseSavepoint,jdbcType=BIGINT},
+      </if>
+      <if test="objectInstanceBegin != null" >
+        #{objectInstanceBegin,jdbcType=BIGINT},
+      </if>
+      <if test="nestingEventId != null" >
+        #{nestingEventId,jdbcType=BIGINT},
+      </if>
+      <if test="nestingEventType != null" >
+        #{nestingEventType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.crowdfunding.entity.EventsTransactionsHistoryLongExample" resultType="java.lang.Integer" >
+    select count(*) from events_transactions_history_long
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update events_transactions_history_long
+    <set >
+      <if test="record.threadId != null" >
+        THREAD_ID = #{record.threadId,jdbcType=BIGINT},
+      </if>
+      <if test="record.eventId != null" >
+        EVENT_ID = #{record.eventId,jdbcType=BIGINT},
+      </if>
+      <if test="record.endEventId != null" >
+        END_EVENT_ID = #{record.endEventId,jdbcType=BIGINT},
+      </if>
+      <if test="record.eventName != null" >
+        EVENT_NAME = #{record.eventName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=CHAR},
+      </if>
+      <if test="record.trxId != null" >
+        TRX_ID = #{record.trxId,jdbcType=BIGINT},
+      </if>
+      <if test="record.gtid != null" >
+        GTID = #{record.gtid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xidFormatId != null" >
+        XID_FORMAT_ID = #{record.xidFormatId,jdbcType=INTEGER},
+      </if>
+      <if test="record.xidGtrid != null" >
+        XID_GTRID = #{record.xidGtrid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xidBqual != null" >
+        XID_BQUAL = #{record.xidBqual,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xaState != null" >
+        XA_STATE = #{record.xaState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        SOURCE = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timerStart != null" >
+        TIMER_START = #{record.timerStart,jdbcType=BIGINT},
+      </if>
+      <if test="record.timerEnd != null" >
+        TIMER_END = #{record.timerEnd,jdbcType=BIGINT},
+      </if>
+      <if test="record.timerWait != null" >
+        TIMER_WAIT = #{record.timerWait,jdbcType=BIGINT},
+      </if>
+      <if test="record.accessMode != null" >
+        ACCESS_MODE = #{record.accessMode,jdbcType=CHAR},
+      </if>
+      <if test="record.isolationLevel != null" >
+        ISOLATION_LEVEL = #{record.isolationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.autocommit != null" >
+        AUTOCOMMIT = #{record.autocommit,jdbcType=CHAR},
+      </if>
+      <if test="record.numberOfSavepoints != null" >
+        NUMBER_OF_SAVEPOINTS = #{record.numberOfSavepoints,jdbcType=BIGINT},
+      </if>
+      <if test="record.numberOfRollbackToSavepoint != null" >
+        NUMBER_OF_ROLLBACK_TO_SAVEPOINT = #{record.numberOfRollbackToSavepoint,jdbcType=BIGINT},
+      </if>
+      <if test="record.numberOfReleaseSavepoint != null" >
+        NUMBER_OF_RELEASE_SAVEPOINT = #{record.numberOfReleaseSavepoint,jdbcType=BIGINT},
+      </if>
+      <if test="record.objectInstanceBegin != null" >
+        OBJECT_INSTANCE_BEGIN = #{record.objectInstanceBegin,jdbcType=BIGINT},
+      </if>
+      <if test="record.nestingEventId != null" >
+        NESTING_EVENT_ID = #{record.nestingEventId,jdbcType=BIGINT},
+      </if>
+      <if test="record.nestingEventType != null" >
+        NESTING_EVENT_TYPE = #{record.nestingEventType,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update events_transactions_history_long
+    set THREAD_ID = #{record.threadId,jdbcType=BIGINT},
+      EVENT_ID = #{record.eventId,jdbcType=BIGINT},
+      END_EVENT_ID = #{record.endEventId,jdbcType=BIGINT},
+      EVENT_NAME = #{record.eventName,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=CHAR},
+      TRX_ID = #{record.trxId,jdbcType=BIGINT},
+      GTID = #{record.gtid,jdbcType=VARCHAR},
+      XID_FORMAT_ID = #{record.xidFormatId,jdbcType=INTEGER},
+      XID_GTRID = #{record.xidGtrid,jdbcType=VARCHAR},
+      XID_BQUAL = #{record.xidBqual,jdbcType=VARCHAR},
+      XA_STATE = #{record.xaState,jdbcType=VARCHAR},
+      SOURCE = #{record.source,jdbcType=VARCHAR},
+      TIMER_START = #{record.timerStart,jdbcType=BIGINT},
+      TIMER_END = #{record.timerEnd,jdbcType=BIGINT},
+      TIMER_WAIT = #{record.timerWait,jdbcType=BIGINT},
+      ACCESS_MODE = #{record.accessMode,jdbcType=CHAR},
+      ISOLATION_LEVEL = #{record.isolationLevel,jdbcType=VARCHAR},
+      AUTOCOMMIT = #{record.autocommit,jdbcType=CHAR},
+      NUMBER_OF_SAVEPOINTS = #{record.numberOfSavepoints,jdbcType=BIGINT},
+      NUMBER_OF_ROLLBACK_TO_SAVEPOINT = #{record.numberOfRollbackToSavepoint,jdbcType=BIGINT},
+      NUMBER_OF_RELEASE_SAVEPOINT = #{record.numberOfReleaseSavepoint,jdbcType=BIGINT},
+      OBJECT_INSTANCE_BEGIN = #{record.objectInstanceBegin,jdbcType=BIGINT},
+      NESTING_EVENT_ID = #{record.nestingEventId,jdbcType=BIGINT},
+      NESTING_EVENT_TYPE = #{record.nestingEventType,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

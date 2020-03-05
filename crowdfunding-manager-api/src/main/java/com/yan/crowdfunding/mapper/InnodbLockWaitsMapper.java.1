@@ -1,0 +1,27 @@
+package com.yan.crowdfunding.mapper;
+
+import com.yan.crowdfunding.entity.InnodbLockWaits;
+import com.yan.crowdfunding.entity.InnodbLockWaitsExample;
+import com.yan.crowdfunding.entity.InnodbLockWaitsWithBLOBs;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface InnodbLockWaitsMapper {
+    int countByExample(InnodbLockWaitsExample example);
+
+    int deleteByExample(InnodbLockWaitsExample example);
+
+    int insert(InnodbLockWaitsWithBLOBs record);
+
+    int insertSelective(InnodbLockWaitsWithBLOBs record);
+
+    List<InnodbLockWaitsWithBLOBs> selectByExampleWithBLOBs(InnodbLockWaitsExample example);
+
+    List<InnodbLockWaits> selectByExample(InnodbLockWaitsExample example);
+
+    int updateByExampleSelective(@Param("record") InnodbLockWaitsWithBLOBs record, @Param("example") InnodbLockWaitsExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") InnodbLockWaitsWithBLOBs record, @Param("example") InnodbLockWaitsExample example);
+
+    int updateByExample(@Param("record") InnodbLockWaits record, @Param("example") InnodbLockWaitsExample example);
+}

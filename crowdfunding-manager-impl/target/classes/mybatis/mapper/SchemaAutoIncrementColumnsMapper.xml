@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yan.crowdfunding.mapper.SchemaAutoIncrementColumnsMapper" >
+  <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.SchemaAutoIncrementColumns" >
+    <result column="table_schema" property="tableSchema" jdbcType="VARCHAR" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="is_signed" property="isSigned" jdbcType="INTEGER" />
+    <result column="is_unsigned" property="isUnsigned" jdbcType="INTEGER" />
+    <result column="max_value" property="maxValue" jdbcType="BIGINT" />
+    <result column="auto_increment" property="autoIncrement" jdbcType="BIGINT" />
+    <result column="auto_increment_ratio" property="autoIncrementRatio" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yan.crowdfunding.entity.SchemaAutoIncrementColumns" extends="BaseResultMap" >
+    <result column="column_type" property="columnType" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    table_schema, table_name, column_name, data_type, is_signed, is_unsigned, max_value, 
+    auto_increment, auto_increment_ratio
+  </sql>
+  <sql id="Blob_Column_List" >
+    column_type
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from schema_auto_increment_columns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumnsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from schema_auto_increment_columns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumnsExample" >
+    delete from schema_auto_increment_columns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumns" >
+    insert into schema_auto_increment_columns (table_schema, table_name, column_name, 
+      data_type, is_signed, is_unsigned, 
+      max_value, auto_increment, auto_increment_ratio, 
+      column_type)
+    values (#{tableSchema,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, 
+      #{dataType,jdbcType=VARCHAR}, #{isSigned,jdbcType=INTEGER}, #{isUnsigned,jdbcType=INTEGER}, 
+      #{maxValue,jdbcType=BIGINT}, #{autoIncrement,jdbcType=BIGINT}, #{autoIncrementRatio,jdbcType=DECIMAL}, 
+      #{columnType,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumns" >
+    insert into schema_auto_increment_columns
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tableSchema != null" >
+        table_schema,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="columnName != null" >
+        column_name,
+      </if>
+      <if test="dataType != null" >
+        data_type,
+      </if>
+      <if test="isSigned != null" >
+        is_signed,
+      </if>
+      <if test="isUnsigned != null" >
+        is_unsigned,
+      </if>
+      <if test="maxValue != null" >
+        max_value,
+      </if>
+      <if test="autoIncrement != null" >
+        auto_increment,
+      </if>
+      <if test="autoIncrementRatio != null" >
+        auto_increment_ratio,
+      </if>
+      <if test="columnType != null" >
+        column_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tableSchema != null" >
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null" >
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSigned != null" >
+        #{isSigned,jdbcType=INTEGER},
+      </if>
+      <if test="isUnsigned != null" >
+        #{isUnsigned,jdbcType=INTEGER},
+      </if>
+      <if test="maxValue != null" >
+        #{maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="autoIncrement != null" >
+        #{autoIncrement,jdbcType=BIGINT},
+      </if>
+      <if test="autoIncrementRatio != null" >
+        #{autoIncrementRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="columnType != null" >
+        #{columnType,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yan.crowdfunding.entity.SchemaAutoIncrementColumnsExample" resultType="java.lang.Integer" >
+    select count(*) from schema_auto_increment_columns
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update schema_auto_increment_columns
+    <set >
+      <if test="record.tableSchema != null" >
+        table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null" >
+        table_name = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnName != null" >
+        column_name = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataType != null" >
+        data_type = #{record.dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSigned != null" >
+        is_signed = #{record.isSigned,jdbcType=INTEGER},
+      </if>
+      <if test="record.isUnsigned != null" >
+        is_unsigned = #{record.isUnsigned,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxValue != null" >
+        max_value = #{record.maxValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.autoIncrement != null" >
+        auto_increment = #{record.autoIncrement,jdbcType=BIGINT},
+      </if>
+      <if test="record.autoIncrementRatio != null" >
+        auto_increment_ratio = #{record.autoIncrementRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="record.columnType != null" >
+        column_type = #{record.columnType,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update schema_auto_increment_columns
+    set table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      table_name = #{record.tableName,jdbcType=VARCHAR},
+      column_name = #{record.columnName,jdbcType=VARCHAR},
+      data_type = #{record.dataType,jdbcType=VARCHAR},
+      is_signed = #{record.isSigned,jdbcType=INTEGER},
+      is_unsigned = #{record.isUnsigned,jdbcType=INTEGER},
+      max_value = #{record.maxValue,jdbcType=BIGINT},
+      auto_increment = #{record.autoIncrement,jdbcType=BIGINT},
+      auto_increment_ratio = #{record.autoIncrementRatio,jdbcType=DECIMAL},
+      column_type = #{record.columnType,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update schema_auto_increment_columns
+    set table_schema = #{record.tableSchema,jdbcType=VARCHAR},
+      table_name = #{record.tableName,jdbcType=VARCHAR},
+      column_name = #{record.columnName,jdbcType=VARCHAR},
+      data_type = #{record.dataType,jdbcType=VARCHAR},
+      is_signed = #{record.isSigned,jdbcType=INTEGER},
+      is_unsigned = #{record.isUnsigned,jdbcType=INTEGER},
+      max_value = #{record.maxValue,jdbcType=BIGINT},
+      auto_increment = #{record.autoIncrement,jdbcType=BIGINT},
+      auto_increment_ratio = #{record.autoIncrementRatio,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

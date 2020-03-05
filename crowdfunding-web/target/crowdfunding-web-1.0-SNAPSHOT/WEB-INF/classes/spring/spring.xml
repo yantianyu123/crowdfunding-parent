@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.yan.crowdfunding.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+    <!-- 引入外部的连接数据库配置信息 -->
+    <context:property-placeholder location="classpath:config/jdbc.properties"></context:property-placeholder>
+
+    <!-- 数据库连接池对象 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${mysql.driver}"></property>
+        <property name="url" value="${mysql.url}"></property>
+        <property name="username" value="${mysql.username}"></property>
+        <property name="password" value="${mysql.password}"></property>
+        <!-- 初始化连接数 -->
+        <property name="initialSize" value="3"></property>
+        <!-- 最大连接数 -->
+        <property name="maxActive" value="6"></property>
+    </bean>
+
+    <!-- spring声明式事务 -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--  --><property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+        
+    <!-- 事务增强 -->
+    <tx:advice id="tx" transaction-manager="dataSourceTransactionManager">
+    	<tx:attributes>
+			<!-- propagation:事务的传播行为 -->
+    		<tx:method name="add*" propagation="REQUIRED"/>
+    		<tx:method name="delete*" propagation="REQUIRED"/>
+    		<tx:method name="update*" propagation="REQUIRED"/>
+    		<tx:method name="*" propagation="SUPPORTS"/>
+    	</tx:attributes>
+    </tx:advice>
+
+    <!-- aop配置 -->
+    <aop:config>
+    	<aop:pointcut expression="execution(* com.yan.crowdfunding.service.impl.*.*(..))" id="pointcut1"/>
+    	<aop:advisor advice-ref="tx" pointcut-ref="pointcut1"/>
+    </aop:config>
+	
+	<!-- dao接口代理创建 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yan.crowdfunding.mapper"></property>
+	</bean>
+    
+</beans>
