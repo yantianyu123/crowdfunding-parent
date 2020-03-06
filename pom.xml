@@ -12,8 +12,8 @@
         <module>crowdfunding-web</module>
         <module>crowdfunding-manager-impl</module>
         <module>crowdfunding-manager-api</module>
-        <module>crowdfunding-entity</module>
         <module>crowdfunding-common</module>
+        <module>crowdfunding-entity</module>
     </modules>
 
     <properties>

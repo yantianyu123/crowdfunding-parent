@@ -31,8 +31,8 @@
 
 		<!-- sqlMap sql映射文件（xml mapper文件） -->
 		<sqlMapGenerator
-			targetPackage="mybatis.mapper"
-			targetProject="..\crowdfunding-manager-impl\src\main\resources">
+			targetPackage="com.yan.crowdfunding.mapper"
+			targetProject="..\crowdfunding-manager-api\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 

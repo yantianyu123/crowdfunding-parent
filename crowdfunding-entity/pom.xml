@@ -17,8 +17,8 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
-    <dependencies>
 
+    <dependencies>
         <!-- jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

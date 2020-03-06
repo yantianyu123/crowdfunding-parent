@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yan.crowdfunding.mapper.TMenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.TMenu" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="pid" property="pid" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+    </resultMap>
+
+<!--    //查询全部的TMenu信息-->
+<!--    List<TMenu> listTMenu();-->
+    <select id="listTMenu" resultMap="BaseResultMap">
+        select * from t_menu
+    </select>
+
+</mapper>

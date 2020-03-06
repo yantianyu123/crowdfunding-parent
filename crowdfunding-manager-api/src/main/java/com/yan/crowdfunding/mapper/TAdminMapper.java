@@ -1,22 +1,27 @@
 package com.yan.crowdfunding.mapper;
 
 import com.yan.crowdfunding.entity.TAdmin;
-import com.yan.crowdfunding.entity.TAdminExample;
+
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author
+ * @date 2020/3/6 15:22
+ */
 public interface TAdminMapper {
-    int countByExample(TAdminExample example);
 
-    int deleteByExample(TAdminExample example);
+    //根据用户名查询管理员信息
+    TAdmin getTAdminByLoginacct(String loginacct);
 
-    int insert(TAdmin record);
+    //查询全部
+    List<TAdmin> listTAdmin();
 
-    int insertSelective(TAdmin record);
+    //添加管理员
+    void saveTAdmin(TAdmin admin);
 
-    List<TAdmin> selectByExample(TAdminExample example);
+    //根据id查询管理员
+    TAdmin findTAdminById(Integer id);
 
-    int updateByExampleSelective(@Param("record") TAdmin record, @Param("example") TAdminExample example);
-
-    int updateByExample(@Param("record") TAdmin record, @Param("example") TAdminExample example);
+    //修改数据
+    void updateTAdmin(TAdmin admin);
 }

@@ -1,5 +1,8 @@
 package com.yan.crowdfunding.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TMenu {
     private Integer id;
 
@@ -10,6 +13,16 @@ public class TMenu {
     private String icon;
 
     private String url;
+
+    private List<TMenu> children = new ArrayList<>();
+
+    public List<TMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<TMenu> children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;
@@ -49,5 +62,17 @@ public class TMenu {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "TMenu{" +
+                "id=" + id +
+                ", pid=" + pid +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                ", url='" + url + '\'' +
+                ", children=" + children +
+                '}';
     }
 }

@@ -3,6 +3,7 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/crowdfunding-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crowdfunding-entity" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crowdfunding-entity" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crowdfunding-manager-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crowdfunding-manager-impl" charset="UTF-8" />
   </component>

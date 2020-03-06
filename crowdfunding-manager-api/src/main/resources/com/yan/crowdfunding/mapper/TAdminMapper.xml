@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yan.crowdfunding.mapper.TAdminMapper">
+
+    <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.TAdmin" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="loginacct" property="loginacct" jdbcType="VARCHAR" />
+        <result column="userpswd" property="userpswd" jdbcType="CHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="createtime" property="createtime" jdbcType="CHAR" />
+    </resultMap>
+
+<!--    //根据用户名查询管理员信息-->
+<!--    TAdmin getTAdminByLoginacct(String loginacct);-->
+    <select id="getTAdminByLoginacct" resultMap="BaseResultMap">
+        select * from t_admin where loginacct = #{loginacct}
+    </select>
+
+
+<!--    //查询全部-->
+<!--    List<TAdmin> listTAdmin();-->
+    <select id="listTAdmin" resultMap="BaseResultMap">
+        select * from t_admin order by createtime desc
+    </select>
+
+<!--    //添加管理员-->
+<!--    void saveTAdmin(TAdmin admin);-->
+    <insert id="saveTAdmin" parameterType="com.yan.crowdfunding.entity.TAdmin">
+        insert into t_admin(loginacct,userpswd,username,email,createtime) values(#{loginacct},#{userpswd},#{username},#{email},#{createtime})
+    </insert>
+
+<!--    //根据id查询管理员-->
+<!--    TAdmin findTAdminById(Integer id);-->
+    <select id="findTAdminById" resultMap="BaseResultMap">
+        select * from  t_admin where id = #{id}
+    </select>
+
+<!--    //修改数据-->
+<!--    void updateTAdmin(TAdmin admin);-->
+    <update id="updateTAdmin" parameterType="com.yan.crowdfunding.entity.TAdmin">
+        update t_admin set loginacct = #{loginacct},userpswd = #{userpswd},username = #{username},email = #{email}
+        where id = #{id}
+    </update>
+
+</mapper>
