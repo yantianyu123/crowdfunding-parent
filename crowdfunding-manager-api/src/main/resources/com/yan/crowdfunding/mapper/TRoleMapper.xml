@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yan.crowdfunding.mapper.TRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.TRole" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+<!--    //查询全部角色-->
+<!--    List<TRole> queryAll(Map<String, Object> map);-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select * from t_role
+        <where>
+            <if test="condition != null" >
+                name like concat('%',#{condition},'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+<!--    //添加角色-->
+<!--    void addRole(TRole role);-->
+    <insert id="addRole" parameterType="com.yan.crowdfunding.entity.TRole">
+        insert into t_role(name) values(#{name})
+    </insert>
+
+<!--    //根据id查询角色-->
+<!--    TRole queryRoleById(Integer id);-->
+    <select id="queryRoleById" resultMap="BaseResultMap">
+        select * from t_role where id = #{id}
+    </select>
+
+<!--    //修改角色信息-->
+<!--    void updateRole(TRole role);-->
+    <update id="updateRole" parameterType="com.yan.crowdfunding.entity.TRole">
+        update t_role set name = #{name} where id = #{id}
+    </update>
+
+<!--    //根据id删除角色信息-->
+<!--    void deleteTRoleById(Integer id);-->
+    <delete id="deleteTRoleById" >
+        delete from t_role where id = #{id}
+    </delete>
+
+<!--    //根据id批量删除角色-->
+<!--    void deleteRoles(Integer[] ids);-->
+    <delete id="deleteRoles">
+        delete from t_role where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    
+<!--      //根据管理员id查询拥有的角色-->
+<!--    List<TRole> listRoleByAdminId(Integer id);-->
+    <select id="listRoleByAdminId" resultMap="BaseResultMap">
+        SELECT t_role.* FROM 
+        t_admin 
+        JOIN 
+        t_admin_role
+        ON t_admin.`id` = t_admin_role.`adminid`
+        JOIN 
+        t_role
+        ON t_admin_role.`roleid` = t_role.`id`
+        WHERE t_admin.`id`=#{id}
+    </select>
+    
+</mapper>

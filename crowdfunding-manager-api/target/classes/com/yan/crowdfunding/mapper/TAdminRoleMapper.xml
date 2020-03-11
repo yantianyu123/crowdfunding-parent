@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yan.crowdfunding.mapper.TAdminRoleMapper">
+
+   <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.TAdminRole" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="adminid" property="adminid" jdbcType="INTEGER" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+  </resultMap>
+    
+<!--    //根据用户id查询已分配的角色id-->
+<!--    List<Integer> findAssignRoleid(Integer id);-->
+    <select id="findAssignRoleid" resultType="int">
+        select roleid from t_admin_role where adminid = #{id}
+    </select>
+    
+<!--        //给用户分配角色-->
+<!--    void assignRole(@Param("adminId") Integer adminId, @Param("roleIds") Integer[] roleIdLeft);-->
+    <insert id="assignRole" >
+        insert into t_admin_role(adminid,roleid) values 
+        <foreach collection="roleIds" item="roleId" separator=",">
+            (#{adminId},#{roleId})
+        </foreach>
+    </insert>
+    
+<!--        //取消用户分配的角色-->
+<!--    void unAssignRole(@Param("adminId") Integer adminId,@Param("roleIds") Integer[] roleIdRight);-->
+    <delete id="unAssignRole">
+        delete from t_admin_role where adminid = #{adminId} and roleid in 
+        <foreach collection="roleIds" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+    
+</mapper>

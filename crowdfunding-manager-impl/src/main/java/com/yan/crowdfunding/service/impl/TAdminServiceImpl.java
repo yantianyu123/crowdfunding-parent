@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.yan.crowdfunding.entity.TAdmin;
 import com.yan.crowdfunding.excepiton.LoginException;
 import com.yan.crowdfunding.mapper.TAdminMapper;
+import com.yan.crowdfunding.mapper.TAdminRoleMapper;
 import com.yan.crowdfunding.service.TAdminService;
 import com.yan.crowdfunding.utils.AppDateUtils;
 import com.yan.crowdfunding.utils.Const;
@@ -24,6 +25,9 @@ public class TAdminServiceImpl implements TAdminService {
 
     @Autowired
     TAdminMapper adminMapper;
+    
+    @Autowired
+    TAdminRoleMapper adminRoleMapper;
 
     @Override
     public TAdmin getTAdminByLogin(Map<String, Object> map) {
@@ -51,7 +55,7 @@ public class TAdminServiceImpl implements TAdminService {
         Integer pageSize = (Integer) map.get("pageSize");
 
         PageHelper.startPage(pageNum,pageSize);
-        List<TAdmin> admins = adminMapper.listTAdmin();
+        List<TAdmin> admins = adminMapper.listTAdmin(map);
         PageInfo<TAdmin> pageInfo = new PageInfo<>(admins);
 
         return pageInfo;
@@ -78,5 +82,30 @@ public class TAdminServiceImpl implements TAdminService {
     @Override
     public void updateTAdmin(TAdmin admin) {
         adminMapper.updateTAdmin(admin);
+    }
+
+    @Override
+    public void deleteTAdminById(Integer id) {
+        adminMapper.deleteTAdminById(id);
+    }
+
+    @Override
+    public void deleteTAdmins(Integer[] ids) {
+        adminMapper.deleteTAdmins(ids);
+    }
+
+    @Override
+    public List<Integer> findAssignRoleid(Integer id) {
+        return adminRoleMapper.findAssignRoleid(id);
+    }
+
+    @Override
+    public void assignRole(Integer adminId, Integer[] roleIdLeft) {
+        adminRoleMapper.assignRole(adminId,roleIdLeft);
+    }
+
+    @Override
+    public void unAssignRole(Integer adminId, Integer[] roleIdRight) {
+        adminRoleMapper.unAssignRole( adminId, roleIdRight);
     }
 }

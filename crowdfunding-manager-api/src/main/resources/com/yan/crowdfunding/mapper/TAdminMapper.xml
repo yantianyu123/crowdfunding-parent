@@ -21,9 +21,17 @@
 
 
 <!--    //查询全部-->
-<!--    List<TAdmin> listTAdmin();-->
+<!--    List<TAdmin> listTAdmin(Map<String,Object> map);-->
     <select id="listTAdmin" resultMap="BaseResultMap">
-        select * from t_admin order by createtime desc
+        select * from t_admin
+        <where>
+            <if test="condition != null">
+                loginacct like concat('%',#{condition},'%') or
+                username like concat('%',#{condition},'%') or
+                email like concat('%',#{condition},'%')
+            </if>
+        </where>
+        order by createtime desc
     </select>
 
 <!--    //添加管理员-->
@@ -44,5 +52,26 @@
         update t_admin set loginacct = #{loginacct},userpswd = #{userpswd},username = #{username},email = #{email}
         where id = #{id}
     </update>
+
+<!--    //根据id删除管理员-->
+<!--    void deleteTAdminById(Integer id);-->
+    <delete id="deleteTAdminById">
+        delete from t_admin where id = #{id}
+    </delete>
+
+<!--    //根据id批量删除管理员-->
+<!--    void deleteTAdmins(Integer[] ids);-->
+    <delete id="deleteTAdmins">
+        delete from t_admin where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    
+<!--      //根据账号查询管理员-->
+<!--    TAdmin findTadminByLoginacct(String name);-->
+    <select id="findTadminByLoginacct" resultMap="BaseResultMap">
+        select * from t_admin where loginacct = #{name}
+    </select>
 
 </mapper>

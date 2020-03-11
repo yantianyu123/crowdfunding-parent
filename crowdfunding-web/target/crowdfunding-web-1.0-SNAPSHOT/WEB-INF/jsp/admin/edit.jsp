@@ -50,6 +50,7 @@
                     <form role="form" id="for1" action="${PATH}/admin/update" method="post">
                         <input type="hidden" name="userpswd" value="${admin.userpswd}"/>
                         <input type="hidden" name="id" value="${admin.id}"/>
+                        <input type="hidden" name="pageNum" value="${param.pageNum}"/>
                         <div class="form-group">
                             <label for="exampleInputPassword1">登陆账号</label>
                             <input type="text" class="form-control" id="loginacct" name="loginacct" value="${admin.loginacct}">

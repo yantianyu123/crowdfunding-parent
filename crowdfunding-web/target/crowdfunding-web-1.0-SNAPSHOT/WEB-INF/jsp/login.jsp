@@ -27,14 +27,14 @@
 
 <div class="container">
 
-    <form class="form-signin" role="form" id="for1" action="doLogin" method="post">
+    <form class="form-signin" role="form" id="for1" action="${PATH}/doLogin" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
-        <c:if test="${not empty message}">
+        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
             <div class="form-group has-success has-feedback">
-                <p style="color: red">${message}</p>
+                <p style="color: red">${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
             </div>
         </c:if>
-
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="form-group has-success has-feedback">
             <input type="text" class="form-control" id="loginacct" name="loginacct" value="${param.loginacct}" placeholder="请输入登录账号" autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -45,7 +45,7 @@
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> 记住我
+                <input type="checkbox" name="remember-me"> 记住我
             </label>
             <br>
             <label>
@@ -60,8 +60,14 @@
 </div>
 <script src="${PATH}/static/jquery/jquery-2.1.1.min.js"></script>
 <script src="${PATH}/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="${PATH}/static/jquery/layer/layer.js"></script>
 <script>
     function dologin() {
+        var loginacct = $("#loginacct").val();
+        if($.trim(loginacct) == ""){
+            layer.msg('账号不能为空！',{time:3000});
+            return false;
+        }
         $("#for1").submit();
     }
 </script>

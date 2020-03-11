@@ -32,9 +32,6 @@ public class TMenuServiceImpl implements TMenuService {
                 parents.add(menu);
             }
         }
-
-
-
         //取得所有的子菜单
         for(TMenu menu : menus){
             if(menu.getPid() != 0){
@@ -45,5 +42,30 @@ public class TMenuServiceImpl implements TMenuService {
         }
 
         return parents;
+    }
+
+    @Override
+    public List<TMenu> queryAll() {
+        return menuMapper.listTMenu();
+    }
+
+    @Override
+    public void addMenu(TMenu menu) {
+        menuMapper.addMenu(menu);
+    }
+
+    @Override
+    public TMenu findTMenuById(Integer id) {
+        return menuMapper.getTMenu(id);
+    }
+
+    @Override
+    public void updateTMenu(TMenu menu) {
+        menuMapper.updateTMenu(menu);
+    }
+
+    @Override
+    public void deleteTMenuById(Integer id) {
+        menuMapper.deleteTMenuById(id);
     }
 }

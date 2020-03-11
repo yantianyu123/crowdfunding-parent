@@ -1,8 +1,6 @@
 package com.yan.crowdfunding.controller;
 
-import com.yan.crowdfunding.entity.TAdmin;
 import com.yan.crowdfunding.entity.TMenu;
-import com.yan.crowdfunding.mapper.TMenuMapper;
 import com.yan.crowdfunding.service.TAdminService;
 import com.yan.crowdfunding.service.TMenuService;
 import com.yan.crowdfunding.utils.Const;
@@ -10,13 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author
@@ -46,7 +41,7 @@ public class IndexController {
      * 跳转到登陆页面
      * @return
      */
-    @RequestMapping("/login")
+    @RequestMapping("/loginPage")
     public String login(){
 
         return "login";
@@ -56,7 +51,7 @@ public class IndexController {
      * 登陆判断，然后进行重定向后台管理页面
      * @return
      */
-    @RequestMapping("/doLogin")
+/*    @RequestMapping("/doLogin")
     public String doLogin(String loginacct, String userpswd, HttpSession session, Model model){
 
         log.debug("loginacct={}",loginacct);
@@ -69,7 +64,7 @@ public class IndexController {
         try {
             TAdmin admin = adminService.getTAdminByLogin(map);
             session.setAttribute(Const.LOGIN_ADMIN,admin);
-
+            System.out.println("=============================>"+session.getAttribute(Const.LOGIN_ADMIN));
             return "redirect:/main";
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +72,7 @@ public class IndexController {
             log.debug("消息={}",e.getMessage());
             return "login";
         }
-    }
+    }*/
 
     /**
      * 跳转到后台页面
@@ -96,7 +91,7 @@ public class IndexController {
      * 用户注销
      * @return 重定向到首页
      */
-    @RequestMapping("/logout")
+/*    @RequestMapping("/logout")
     public String logout(HttpSession session){
 
         if(session != null){
@@ -104,6 +99,6 @@ public class IndexController {
             session.invalidate();
         }
         return "redirect:/index";
-    }
+    }*/
 
 }

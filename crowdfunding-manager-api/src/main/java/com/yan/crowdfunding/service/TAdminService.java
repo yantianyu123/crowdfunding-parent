@@ -3,6 +3,7 @@ package com.yan.crowdfunding.service;
 import com.github.pagehelper.PageInfo;
 import com.yan.crowdfunding.entity.TAdmin;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,4 +43,37 @@ public interface TAdminService {
      * @param admin 修改的数据
      */
     void updateTAdmin(TAdmin admin);
+
+    /**
+     * 根据id删除管理员
+     * @param id 要删除的管理员id
+     */
+    void deleteTAdminById(Integer id);
+
+    /**
+     * 根据id批量删除管理员
+     * @param ids 要删除的管理员id
+     */
+    void deleteTAdmins(Integer[] ids);
+
+    /**
+     * 查询已分配角色的id
+     * @param id 根据用户id查询
+     * @return
+     */
+    List<Integer> findAssignRoleid(Integer id);
+
+    /**
+     * 给用户分配角色
+     * @param adminId 用户id
+     * @param roleIdLeft 未分配角色id
+     */
+    void assignRole(Integer adminId, Integer[] roleIdLeft);
+
+    /**
+     * 给用户取消分配的角色
+     * @param adminId 用户id
+     * @param roleIdRight 已分配角色id
+     */
+    void unAssignRole(Integer adminId, Integer[] roleIdRight);
 }

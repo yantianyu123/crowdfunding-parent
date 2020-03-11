@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yan.crowdfunding.mapper.TPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.yan.crowdfunding.entity.TPermission" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="icon" property="icon" jdbcType="VARCHAR" />
+        <result column="pid" property="pid" jdbcType="INTEGER" />
+    </resultMap>
+    
+<!--     //查询全部-->
+<!--    List<TPermission> listTPermission();-->
+    <select id="listTPermission" resultMap="BaseResultMap">
+        select * from t_permission
+    </select>
+    
+<!--    //添加权限-->
+<!--    void insertTPermission(TPermission permission);-->
+    <insert id="insertTPermission" parameterType="com.yan.crowdfunding.entity.TPermission">
+        insert into t_permission(name,title,icon,pid) values(#{name},#{title},#{icon},#{pid})
+    </insert>
+    
+<!--    //根据id查询权限-->
+<!--    TPermission queryTPermission(Integer id);-->
+    <select id="queryTPermission" resultMap="BaseResultMap">
+        select * from t_permission where id = #{id}
+    </select>
+    
+<!--      //修改权限信息-->
+<!--    void updateTPermission(TPermission permission);-->
+    <update id="updateTPermission" parameterType="com.yan.crowdfunding.entity.TPermission">
+        update t_permission set name = #{name}, title = #{title}, icon = #{icon} where id = #{id}
+    </update>
+    
+<!--       //根据id删除权限-->
+<!--    void deleteTPermissionById(Integer id);-->
+    <delete id="deleteTPermissionById" >
+        delete from t_permission where id = #{id}
+    </delete>
+    
+<!--        //根据管理员id查询已分配的权限-->
+<!--    List<TPermission> listPermissionByAdminId(Integer id);-->
+    <select id="listPermissionByAdminId" resultMap="BaseResultMap">
+        SELECT DISTINCT t_permission.* FROM 
+        t_admin 
+        JOIN 
+        t_admin_role
+        ON t_admin.`id` = t_admin_role.`adminid`
+        JOIN 
+        t_role
+        ON t_admin_role.`roleid` = t_role.`id`
+        JOIN
+        t_role_permission
+        ON t_role.`id` = t_role_permission.`roleid`
+        JOIN
+        t_permission
+        ON t_role_permission.`permissionid` = t_permission.`id`
+        WHERE t_admin.`id`=#{id}
+    </select>
+    
+    
+</mapper>

@@ -17,5 +17,29 @@
     <select id="listTMenu" resultMap="BaseResultMap">
         select * from t_menu
     </select>
-
+    
+<!--    //添加菜单信息-->
+<!--    void addMenu(TMenu menu);-->
+    <insert id="addMenu" parameterType="com.yan.crowdfunding.entity.TMenu">
+        insert into t_menu(pid,name,icon,url) values(#{pid},#{name},#{icon},#{url})
+    </insert>
+    
+<!--     //查询一个菜单信息-->
+<!--    TMenu getTMenu(Integer id);-->
+    <select id="getTMenu" resultMap="BaseResultMap">
+        select * from t_menu where id = #{id}
+    </select>
+    
+<!--    //修改菜单信息-->
+<!--    void updateTMenu(TMenu menu);-->
+    <update id="updateTMenu" parameterType="com.yan.crowdfunding.entity.TMenu">
+        update t_menu set name = #{name}, url = #{url}, icon = #{icon} where id = #{id}
+    </update>
+    
+<!--    //根据id删除菜单信息-->
+<!--    void deleteTMenuById(Integer id);-->
+    <delete id="deleteTMenuById" >
+        delete from t_menu where id = #{id}
+    </delete>
+    
 </mapper>
